@@ -86,6 +86,7 @@
 * [Тестирование](#testing)
 * [Создание библиотек](#library-organization)
 
+<a name="source-code-layout--organization"></a>
 ## Организация кода
 
 > Почти каждый уверен, что все стили кода, кроме его собственного, - уродливые и
@@ -549,6 +550,7 @@
   то это довольно редкий случай на практике.
   <sup>[[link](#forward-references)]</sup>
 
+<a name="synax"></a>
 ## Syntax
 
 * <a name="ns-fns-only-in-repl"></a>
@@ -1142,6 +1144,7 @@
     (meta #'a) ;=> nil
     ```
 
+<a name="naming"></a>
 ## Именование
 
 > Единственными сложностями программирования являются проверка актуальности
@@ -1272,6 +1275,7 @@
         * `body` - тело макроса
         * `binding` - связки макроса (список параметров)
 
+<a name="collections"></a>
 ## Коллекции
 
 > Лучше иметь 100 функций, работающих с одной структурой данных
@@ -1374,6 +1378,7 @@
   критического кода, много работающего с примитивами.
   <sup>[[link](#avoid-java-arrays)]</sup>
 
+<a name="mutation"></a>
 ## Изменение состояния
 
 ### Транзакционные ссылки (Refs)
@@ -1439,6 +1444,7 @@ as small as possible.
     (reset! a 5)
     ```
 
+<a name="strings"></a>
 ## Строки
 
 * <a name="prefer-clojure-string-over-interop"></a>
@@ -1454,6 +1460,7 @@ as small as possible.
     (.toUpperCase "bruce")
     ```
 
+<a name="exceptions"></a>
 ## Исключения
 
 * <a name="reuse-existing-exception-types"></a>
@@ -1468,6 +1475,7 @@ as small as possible.
   Используйте `with-open` вместо `finally`.
   <sup>[[link](#prefer-with-open-over-finally)]</sup>
 
+<a name="macros"></a>
 ## Макросы
 
 * <a name="dont-write-macro-if-fn-will-do"></a>
@@ -1492,6 +1500,7 @@ as small as possible.
   "вручную".
   <sup>[[link](#syntax-quoted-forms)]</sup>
 
+<a name="comments"></a>
 ## Комментарии
 
 > Хороший код является лучшей документацией для самого себя. Если вы собираетесь
@@ -1583,6 +1592,7 @@ as small as possible.
   чтобы он стал понятным ("Делай или не делай, не надо пытаться." --Йода).
   <sup>[[link](#refactor-dont-comment)]</sup>
 
+<a name="comment-annotations"></a>
 ### Аннотации (Comment Annotations)
 
 * <a name="annotate-above"></a>
@@ -1656,6 +1666,7 @@ as small as possible.
   Но не забудьте добавить их в `README` вашего проекта.
   <sup>[[link](#document-annotations)]</sup>
 
+<a name="existential"></a>
 ## Общие рекомендации
 
 * <a name="be-functional"></a>
@@ -1671,6 +1682,7 @@ as small as possible.
   Используйте здравый смысл.
   <sup>[[link](#common-sense)]</sup>
 
+<a name="tooling"></a>
 ## Инструменты
 
 Есть несколько полезных штук, созданных Clojure сообществом, которые могут
@@ -1684,6 +1696,7 @@ as small as possible.
   для поиска кода, который можно переписать с помощью существующей функции или
   макроса.
 
+<a name="testing"></a>
 ## Тестирование
 
  * <a name="test-directory-structure"></a>
@@ -1714,6 +1727,7 @@ as small as possible.
    (deftest something ...)
    ```
 
+<a name="library-organization"></a>
 ## Создание библиотек
 
  * <a name="lib-coordinates"></a>
