@@ -81,6 +81,7 @@
 * [Макросы](#macros)
 * [Комментарии](#comments)
     * [Аннотации](#comment-annotations) (ориг. Comment Annotations)
+* [Документирование](#documentation)
 * [Общие рекомендации](#existential) (ориг. Existential)
 * [Инструменты](#tooling)
 * [Тестирование](#testing)
@@ -231,26 +232,6 @@
       (baz x))
     ```
 
-* <a name="docstring-after-fn-name"></a>
-  Когда пишете док. строку, размещайте его *после* имени функции, а не
-  после списка параметров. Последнее не является нарушением синтаксиса и не
-  вызовет никаких ошибок, но включает строку как часть тела функции без привязки
-  к документации.
-<sup>[[link](#docstring-after-fn-name)]</sup>
-
-    ```Clojure
-    ;; хорошо
-    (defn foo
-      "docstring"
-      [x]
-      (bar x))
-
-    ;; плохо
-    (defn foo [x]
-      "docstring"
-      (bar x))
-    ```
-
 * <a name="oneline-short-fn"></a>
   Можете опустить перенос строки между списком параметров и коротким телом функции
 <sup>[[link](#oneline-short-fn)]</sup>
@@ -333,26 +314,6 @@
       ([x y z] (foo x (foo y z)))
       ([x y] (+ x y))
       ([w x y z & more] (reduce foo (foo w (foo x (foo y z))) more)))
-    ```
-
-* <a name="align-docstring-lines"></a>
-  Расставляйте отступы в многострочных док. строках
-<sup>[[link](#align-docstring-lines)]</sup>
-
-    ```Clojure
-    ;; хорошо
-    (defn foo
-      "Hello there. This is
-      a multi-line docstring."
-      []
-      (bar))
-
-    ;; плохо
-    (defn foo
-      "Hello there. This is
-    a multi-line docstring."
-      []
-      (bar))
     ```
 
 * <a name="crlf"></a>
@@ -1665,6 +1626,186 @@ as small as possible.
   Используйте другие ключевые слова для аннотаций, если они кажутся приемлемыми.
   Но не забудьте добавить их в `README` вашего проекта.
   <sup>[[link](#document-annotations)]</sup>
+
+<a name="documentation"></a>
+## Документирование
+
+Док. строки - основной способ документирования Clojure кода. Многие
+формы-определения (например, `def`, `defn`, `defmacro`, `ns`) поддерживают
+док. строки и использовать их - хорошая идея вне зависимости от того, является
+ли описываемое публичным или приватным.
+
+Если форма-определение не поддерживает док. строки, то вы все равно можете
+добавить документация с помощью аттрибута метаданных `:doc`.
+
+В этом разделе выделены некоторые общие практики по документированию Clojure кода.
+
+* <a name="prefer-docstrings"></a>
+Если возможно, используйте док. строки вместо `:doc`.
+<sup>[[link](#prefer-docstrings)]</sup>
+
+```clojure
+;; хорошо
+(defn foo
+  "This function doesn't do much."
+  []
+  ...)
+
+(ns foo.bar.core
+  "That's an awesome library.")
+
+;; плохо
+(defn foo
+  ^{:doc "This function doesn't do much."}
+  []
+  ...)
+
+(ns ^{:doc "That's an awesome library.")
+  foo.bar.core)
+```
+
+* <a name="docstring-summary"></a>
+  Пишите док. строки законченными предложениями с большой буквы, разумно
+  описывающими сущность, к которой привязаны. Благодаря этому ваши инструменты
+  (текстовые редакторы и IDE) смогут отображать краткое описание сущности во
+  многих местах.
+  <sup>[[link](#docstring-summary)]</sup>
+
+```clojure
+;; хорошо
+(defn frobnitz
+  "This function does a frobnitz.
+  It will do gnorwatz to achieve this, but only under certain
+  cricumstances."
+  []
+  ...)
+
+;; плохо
+(defn frobnitz
+  "This function does a frobnitz. It will do gnorwatz to
+  achieve this, but only under certain cricumstances."
+  []
+  ...)
+```
+
+* <a name="document-pos-arguments"></a>
+  Документируйте все позиционные параметры и оборачивайте их с помощью обратных
+  ковычек (\`). Таким образом, текстовые редакторы и IDE смогут определять их
+  (параметры) и предоставлять дополнительную функциональность для них.
+  <sup>[[link](#document-pos-arguments)]</sup>
+
+```clojure
+;; хорошо
+(defn watsitz
+  "Watsitz takes a `frob` and converts it to a znoot.
+  When the `frob` is negative, the znoot becomes angry."
+  [frob]
+  ...)
+
+;; плохо
+(defn watsitz
+  "Watsitz takes a frob and converts it to a znoot.
+  When the frob is negative, the znoot becomes angry."
+  [frob]
+  ...)
+```
+
+* <a name="document-references"></a>
+  Оборачивайте ссылки на другие сущности (функции, константы) в обратные
+  \``ковычки`\`, чтобы ваши инструменты могли определять их.
+  <sup>[[link](#document-references)]</sup>
+
+```clojure
+;; хорошо
+(defn wombat
+  "Acts much like `clojure.core/identity` except when it doesn't.
+  Takes `x` as an argument and returns that. If it feels like it."
+  [x]
+  ...)
+
+;; плохо
+(defn wombat
+  "Acts much like clojure.core/identity except when it doesn't.
+  Takes `x` as an argument and returns that. If it feels like it."
+  [x]
+  ...)
+```
+
+* <a name="docstring-grammar"></a>
+  Док.строки должны быть грамотно оформленными предложениями на английском
+  языке, т.е. каждое предложение должно начинаться с прописной буквы и
+  заканчиваться точкой (или другим подходящим знаком препинания). Предложения
+  должны отделяться пробелом.
+  <sup>[[link](#docstring-grammar)]</sup>
+
+```clojure
+;; хорошо
+(def foo
+  "All sentences should end with a period (or maybe an exclamation mark).
+  And the period should be followed by a space, unless it's the last sentence.")
+
+;; плохо
+(def foo
+  "all sentences should end with a period (or maybe an exclamation mark).
+  And the period should be followed by a space, unless it's the last sentence")
+```
+
+* <a name="docstring-indentation"></a>
+  Оставляйте отступ в два пробела в многострочных док. строках.
+  <sup>[[link](#docstring-indentation)]</sup>
+
+```clojure
+;; хорошо
+(ns my.ns
+  "It is actually possible to document a ns.
+  It's a nice place to describe the purpose of the namespace and maybe even
+  the overall conventions used. Note how _not_ indenting the doc string makes
+  it easier for tooling to display it correctly.")
+
+;; плохо
+(ns my.ns
+  "It is actually possible to document a ns.
+It's a nice place to describe the purpose of the namespace and maybe even
+the overall conventions used. Note how _not_ indenting the doc string makes
+it easier for tooling to display it correctly.")
+```
+
+* <a name="docstring-leading-trailing-whitespace"></a>
+  Не начинайте и не заканчивайте док. строки пробелом.
+  <sup>[[link](#docstring-leading-trailing-whitespace)]</sup>
+
+```clojure
+;; хорошо
+(def foo
+  "I'm so awesome."
+  42)
+
+;; плохо
+(def silly
+  "    It's just silly to start a doc string with spaces.
+  Just as silly as it is to end it with a bunch of them.      "
+  42)
+```
+
+* <a name="docstring-after-fn-name"></a>
+  Когда пишете док. строку, размещайте его *после* имени функции, а не
+  после списка параметров. Последнее не является нарушением синтаксиса и не
+  вызовет никаких ошибок, но включает строку как часть тела функции без привязки
+  к документации.
+  <sup>[[link](#docstring-after-fn-name)]</sup>
+
+```Clojure
+;; хорошо
+(defn foo
+  "docstring"
+  [x]
+  (bar x))
+
+;; плохо
+(defn foo [x]
+  "docstring"
+  (bar x))
+```
 
 <a name="existential"></a>
 ## Общие рекомендации
