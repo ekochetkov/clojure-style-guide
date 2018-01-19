@@ -1364,8 +1364,7 @@
     ```
 
 * <a name="refs-small-transactions"></a>
-  Try to keep the size of transactions (the amount of work encapsulated in them)
-as small as possible.
+  Старайтесь держать размер транзакций (количество работы, инкапсулированное в них) настолько маленьким насколько возможно.
 <sup>[[link](#refs-small-transactions)]</sup>
 
 * <a name="refs-avoid-short-long-transactions-with-same-ref"></a>
