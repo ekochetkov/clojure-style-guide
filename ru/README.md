@@ -1331,8 +1331,6 @@
   <sup>[[link](#avoid-java-colls)]</sup>
 
 * <a name="avoid-java-arrays"></a>
-  Avoid the use of Java arrays, except for interop scenarios and
-  performance-critical code dealing heavily with primitive types.
   Избегайте использования Java массивов. Разве что для случаев интеграции и
   критического кода, много работающего с примитивами.
   <sup>[[link](#avoid-java-arrays)]</sup>
@@ -1362,8 +1360,7 @@
     ```
 
 * <a name="refs-small-transactions"></a>
-  Try to keep the size of transactions (the amount of work encapsulated in them)
-as small as possible.
+  Старайтесь держать размер транзакций (количество работы, инкапсулированное в них) настолько маленьким насколько возможно.
 <sup>[[link](#refs-small-transactions)]</sup>
 
 * <a name="refs-avoid-short-long-transactions-with-same-ref"></a>
@@ -1375,7 +1372,7 @@ as small as possible.
 
 * <a name="agents-send"></a>
   Используйте `send` только для действий, привязанных к процессору и не
-  блокируют IO или другие потоки.
+  блокирующих IO или другие потоки.
   <sup>[[link](#agents-send)]</sup>
 
 * <a name="agents-send-off"></a>
