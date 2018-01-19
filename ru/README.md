@@ -1377,7 +1377,7 @@ as small as possible.
 
 * <a name="agents-send"></a>
   Используйте `send` только для действий, привязанных к процессору и не
-  блокируют IO или другие потоки.
+  блокирующих IO или другие потоки.
   <sup>[[link](#agents-send)]</sup>
 
 * <a name="agents-send-off"></a>
