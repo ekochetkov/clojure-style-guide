@@ -1333,8 +1333,6 @@
   <sup>[[link](#avoid-java-colls)]</sup>
 
 * <a name="avoid-java-arrays"></a>
-  Avoid the use of Java arrays, except for interop scenarios and
-  performance-critical code dealing heavily with primitive types.
   Избегайте использования Java массивов. Разве что для случаев интеграции и
   критического кода, много работающего с примитивами.
   <sup>[[link](#avoid-java-arrays)]</sup>
