@@ -1284,8 +1284,6 @@
   <sup>[[link](#avoid-index-based-coll-access)]</sup>
 
 * <a name="keywords-as-fn-to-get-map-values"></a>
-  Prefer the use of keywords as functions for retrieving values from
-  maps, where applicable.
   Старайтесь использовать ключи как функции для доступа к значениям хешей, если
   возможно.
   <sup>[[link](#keywords-as-fn-to-get-map-values)]</sup>
